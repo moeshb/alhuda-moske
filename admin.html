@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin – Al-Huda Moské</title>
+</head>
+<body style="font-family: sans-serif; padding: 2rem;">
+  <h1>Adminpanel</h1>
+  <p>Skriv lösenord för att logga in:</p>
+  <input type="password" id="password" placeholder="Lösenord">
+  <button onclick="login()">Logga in</button>
+
+  <div id="adminArea" style="display:none; margin-top:2rem;">
+    <label>
+      Moskéstatus:
+      <select id="moskeStatus">
+        <option value="true">Öppen</option>
+        <option value="false">Stängd</option>
+      </select>
+    </label><br><br>
+    <label>
+      Öppnar om (t.ex. 5 minuter):
+      <input type="text" id="openIn">
+    </label><br><br>
+    <label>
+      Dagens hadith:
+      <textarea id="hadithText" rows="4" cols="40"></textarea>
+    </label><br><br>
+    <button onclick="saveData()">Spara</button>
+    <p id="msg"></p>
+  </div>
+
+  <script>
+    function login() {
+      const pw = document.getElementById("password").value;
+      if (pw === "moske2025") {
+        document.getElementById("adminArea").style.display = "block";
+      } else {
+        alert("Fel lösenord");
+      }
+    }
+
+    function saveData() {
+      const open = document.getElementById("moskeStatus").value === "true";
+      const openIn = document.getElementById("openIn").value;
+      const hadith = document.getElementById("hadithText").value;
+
+      const data = {
+        open: open,
+        openIn: openIn,
+        hadith: hadith
+      };
+
+      localStorage.setItem("moskeData", JSON.stringify(data));
+      document.getElementById("msg").innerText = "Sparat! Gå till startsidan för att se ändringarna.";
+    }
+  </script>
+</body>
+</html>

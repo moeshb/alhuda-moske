@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Al-Huda Moské</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: url('https://images.unsplash.com/photo-1595341761750-44d0d8f3d6d6') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: rgba(0, 100, 0, 0.7);
+      padding: 1rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    nav {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+    nav button {
+      margin-left: 1rem;
+    }
+    main {
+      padding: 2rem;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .status {
+      font-size: 1.5rem;
+      background: green;
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    footer {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.8);
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Al-Huda Moské | مسجد الهدى</h1>
+    <p>Din moské i mobilen</p>
+  </header>
+  <nav>
+    <button onclick="scrollToId('prayer')">Bönetider</button>
+    <button onclick="scrollToId('hadith')">Dagens hadith</button>
+    <button onclick="scrollToId('contact')">Kontakta oss</button>
+  </nav>
+  <main>
+    <div class="status" id="status">Moskéstatus: Laddar...</div>
+    <div id="openTime">Öppnar om: -- minuter</div>
+
+    <section id="prayer">
+      <h2>Bönetider (bild)</h2>
+      <img src="bonetider.jpg" alt="Bönetider" style="width:100%;max-width:400px;"/>
+    </section>
+
+    <section id="hadith">
+      <h2>Dagens Hadith</h2>
+      <p id="hadithText">-</p>
+    </section>
+
+    <section id="contact">
+      <h2>Kontakta oss</h2>
+      <p>📍 Backluravägen 9 A lgh 1202 Nynäshamn Lokal 4, 149 43 Nynäshamn</p>
+      <p>📞 0704660399</p>
+      <p>✉️ alhudamoske@gmail.com</p>
+      <p>💳 Swish: 1234815700</p>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 Al-Huda Moské. All rights reserved.
+  </footer>
+  <script>
+    const data = JSON.parse(localStorage.getItem('moskeData')) || {
+      open: false,
+      openIn: 'okänd tid',
+      hadith: 'Inget hadith sparat ännu.'
+    };
+
+    document.getElementById('status').innerText = data.open ? 'Moskéstatus: Öppen' : 'Moskéstatus: Stängd';
+    document.getElementById('status').style.background = data.open ? 'green' : 'red';
+    document.getElementById('openTime').innerText = 'Öppnar om: ' + data.openIn;
+    document.getElementById('hadithText').innerText = data.hadith;
+
+    function scrollToId(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
